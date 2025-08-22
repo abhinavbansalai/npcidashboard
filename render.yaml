@@ -2,15 +2,15 @@ services:
   - type: web
     name: npcidashboard-backend
     env: python
-    workingDirectory: backend
+    plan: free
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn app:app --host 0.0.0.0 --port 10000
-    plan: free
+    workingDirectory: backend
 
   - type: web
     name: npcidashboard-frontend
     env: node
-    workingDirectory: frontend
-    buildCommand: npm install && npm run build
-    startCommand: npx serve -s dist -l 3000
     plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npx serve -s build -l 3000
+    workingDirectory: frontend
