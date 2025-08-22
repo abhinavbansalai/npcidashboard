@@ -2,25 +2,20 @@ services:
   - type: web
     name: npcidashboard-backend
     env: python
-    plan: free
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn app:app --host 0.0.0.0 --port 10000
     workingDirectory: backend
 
   - type: web
     name: npcidashboard-frontend
-    env: static
-    plan: free
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     workingDirectory: frontend
     routes:
-      # Proxy API requests to backend
       - type: proxy
         source: /api/*
         destination: npcidashboard-backend:10000
 
-      # SPA support: all other routes go to index.html
       - type: rewrite
         source: /*
         destination: /index.html
