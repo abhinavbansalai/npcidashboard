@@ -7,10 +7,8 @@ services:
     startCommand: uvicorn app:app --host 0.0.0.0 --port 10000
     workingDirectory: backend
 
-  - type: web
+  - type: static
     name: npcidashboard-frontend
-    env: node
-    plan: free
     buildCommand: npm install && npm run build
-    startCommand: npx serve -s dist -l 3000
+    staticPublishPath: dist
     workingDirectory: frontend
